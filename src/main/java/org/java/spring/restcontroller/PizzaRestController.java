@@ -54,6 +54,7 @@ public class PizzaRestController {
 	public ResponseEntity <Pizza> searchByTitle(@PathVariable int  id){
 		
 		Pizza pizzas = pizzaService.findById(id);
+		System.out.println(pizzas);
 		
 		if(pizzas == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		

@@ -19,7 +19,7 @@ public class IngredientService {
 	}
 	
 	public Ingredient findById(int id) {
-		return ingredientRepo.findById(id).get();
+		return ingredientRepo.findById(id).orElse(null);
 	}
 	
 	
@@ -36,7 +36,8 @@ public class IngredientService {
 		List<Ingredient> ingredients = new ArrayList<>();
 		for(Integer id : ids) {
 			Ingredient ing = this.findById(id);
-			ingredients.add(ing);
+			if(ing != null) ingredients.add(ing);
+			
 		}
 		return ingredients;
 	}
