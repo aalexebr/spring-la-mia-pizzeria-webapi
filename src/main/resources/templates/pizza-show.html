@@ -1,0 +1,45 @@
+<!doctype html>
+<!-- html tag with Thymeleaf -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Bootstrap CSS -->
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}"/>
+	<title>pizza</title>
+</head>
+	<body>
+		<div class="container">
+			<a th:href="@{/}">home</a>
+			<a sec:authorize="hasAuthority('ADMIN')"
+				class="btn btn-primary" th:href="@{/pizza/edit/{id} (id=${pizza.id})}">edit pizza</a>
+			<h1>pizza:</h1>
+			<div>
+				[[${pizza}]]
+			</div>
+				
+			<div style="width: 18rem;">
+				<img th:src="@{${pizza.url}}" class="img-fluid">
+			</div>
+			
+			<ul th:if="${pizza.ingredients.size > 0}">
+				<h3>list of ingredients:</h3>
+				<li th:each="ing : ${pizza.ingredients}">
+					[[${ing.name}]]
+				</li>
+			</ul>
+			
+			<ul th:if="${pizza.specialOffer.size > 0}">
+				<h3>list of special orders:</h3>
+				<li th:each="offer : ${pizza.specialOffer}">
+					[[${offer}]]
+					<a th:href="@{update-special-offer/{id}(id=${offer.id})}">edit</a>
+				</li>
+			</ul>
+			
+			<a sec:authorize="hasAuthority('ADMIN')"
+				class="btn btn-success" th:href="@{/pizza/{id}/special-offer(id=${pizza.id})}">add special offer</a>
+		</div>
+	</body>
+</html>

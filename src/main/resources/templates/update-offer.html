@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- html tag with Thymeleaf -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Bootstrap CSS -->
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}"/>
+	<title>create offer</title>
+</head>
+<body>
+	
+	<div class="container py-5">
+		<form method="POST" th:object="${offer}">
+			<label>insert title</label>
+			<input th:field="*{title}"
+				type="text" name="title">
+			<label>start date</label>
+			<input th:value="*{startDate}" 
+				type="date" name="startDate">
+			<label>end date</label>
+			<input th:value="*{endDate}"
+				type="date" name="endDate">
+			<button class="btn btn-primary" type="submit">submit</button>
+			
+			<ul>
+			<li
+			th:each="err : ${#fields.allErrors()}"
+			th:text="${err}">
+			</li>
+			</ul>
+		</form>
+		
+	</div>
+
+</body>
+</html>
