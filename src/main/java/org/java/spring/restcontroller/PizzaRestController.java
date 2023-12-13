@@ -1,7 +1,10 @@
 package org.java.spring.restcontroller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.java.spring.DTO.PizzaRestDTO;
+import org.java.spring.pojo.Ingredient;
 import org.java.spring.pojo.Pizza;
 import org.java.spring.service.IngredientService;
 import org.java.spring.service.PizzaService;
@@ -53,7 +56,19 @@ public class PizzaRestController {
 	}
 	
 	@PostMapping("create")
-	public ResponseEntity <Pizza> create(@RequestBody Pizza pizza){
+	public ResponseEntity <Pizza> create(@RequestBody PizzaRestDTO pizzaDTO){
+		Pizza pizza = new Pizza();
+		
+		List<Ingredient> ingredients = ingService.ingredientsById(pizzaDTO.getIngredientId());
+		
+		System.out.println(ingredients);
+		
+		pizza.setName(pizzaDTO.getName());
+		pizza.setPrice(pizzaDTO.getPrice());
+		pizza.setDescription(pizzaDTO.getDescription());
+		pizza.setUrl(pizzaDTO.getUrl());
+		pizza.setIngredients(ingredients);
+//		
 		pizzaService.save(pizza);
 		return new ResponseEntity<>(pizza, HttpStatus.OK);
 	}

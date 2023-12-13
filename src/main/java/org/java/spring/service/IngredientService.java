@@ -1,5 +1,6 @@
 package org.java.spring.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.java.spring.pojo.Ingredient;
@@ -21,6 +22,7 @@ public class IngredientService {
 		return ingredientRepo.findById(id).get();
 	}
 	
+	
 	public void save(Ingredient ingredient) {
 		ingredientRepo.save(ingredient);
 	}
@@ -28,6 +30,15 @@ public class IngredientService {
 	public void delete(Ingredient ingredient) {
 		
 		ingredientRepo.delete(ingredient);
+	}
+	
+	public List<Ingredient> ingredientsById(List<Integer> ids){
+		List<Ingredient> ingredients = new ArrayList<>();
+		for(Integer id : ids) {
+			Ingredient ing = this.findById(id);
+			ingredients.add(ing);
+		}
+		return ingredients;
 	}
 	
 	public void deleteById(int id) {
