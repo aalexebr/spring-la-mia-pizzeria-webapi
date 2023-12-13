@@ -59,15 +59,16 @@ public class PizzaRestController {
 	public ResponseEntity <Pizza> create(@RequestBody PizzaRestDTO pizzaDTO){
 		Pizza pizza = new Pizza();
 		
-		List<Ingredient> ingredients = ingService.ingredientsById(pizzaDTO.getIngredientId());
-		
-		System.out.println(ingredients);
-		
 		pizza.setName(pizzaDTO.getName());
 		pizza.setPrice(pizzaDTO.getPrice());
 		pizza.setDescription(pizzaDTO.getDescription());
 		pizza.setUrl(pizzaDTO.getUrl());
-		pizza.setIngredients(ingredients);
+		
+		if(pizzaDTO.getIngredientId() != null) {
+			List<Ingredient> ingredients = ingService.ingredientsById(pizzaDTO.getIngredientId());
+			pizza.setIngredients(ingredients);
+		}
+		
 //		
 		pizzaService.save(pizza);
 		return new ResponseEntity<>(pizza, HttpStatus.OK);
