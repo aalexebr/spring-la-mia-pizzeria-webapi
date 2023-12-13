@@ -1,6 +1,5 @@
 package org.java.spring.restcontroller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.java.spring.DTO.PizzaRestDTO;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -36,7 +36,12 @@ public class PizzaRestController {
 	IngredientService ingService;
 	
 	@GetMapping("index")
-	public ResponseEntity<List<Pizza>> index(){
+	public ResponseEntity<List<Pizza>> index(@RequestParam(required=false) String name){
+		
+		if(name != null) {
+			List <Pizza> pizzas = pizzaService.findByName(name);
+			return new ResponseEntity<>(pizzas, HttpStatus.OK);
+		}
 		
 		List <Pizza> pizzas = pizzaService.findAll();
 		
@@ -45,12 +50,12 @@ public class PizzaRestController {
 		return new ResponseEntity<>(pizzas, HttpStatus.OK);
 	}
 	
-	@GetMapping("index/{name}")
-	public ResponseEntity<List<Pizza>> searchByTitle(@PathVariable String name){
+	@GetMapping("pizza/{id}")
+	public ResponseEntity <Pizza> searchByTitle(@PathVariable int  id){
 		
-		List <Pizza> pizzas = pizzaService.findByName(name);
+		Pizza pizzas = pizzaService.findById(id);
 		
-		if(pizzas.size() == 0) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		if(pizzas == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
 		return new ResponseEntity<>(pizzas, HttpStatus.OK);
 	}
