@@ -62,14 +62,16 @@ public class PizzaRestController {
 	public ResponseEntity<Pizza> update(@RequestBody Pizza updatePizza,
 										@PathVariable int id){
 		Pizza pizza = pizzaService.findById(id);
-//		if(!updatePizza.getName().isEmpty() || updatePizza.getName() != null) pizza.setName(updatePizza.getName());
-//		if(updatePizza.getPrice() != 0.0) pizza.setPrice(updatePizza.getPrice());
-//		if(!updatePizza.getDescription().isEmpty() || updatePizza.getDescription() != null) pizza.setDescription(updatePizza.getDescription());
-//		if(!updatePizza.getUrl().isEmpty() || updatePizza.getUrl() != null) pizza.setUrl(updatePizza.getUrl());
-		pizza.setName(updatePizza.getName());
-		pizza.setPrice(updatePizza.getPrice());
-		pizza.setDescription(updatePizza.getDescription());
-		pizza.setUrl(updatePizza.getUrl());
+		if(pizza == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		if(updatePizza.getName() != null) pizza.setName(updatePizza.getName());
+		if(updatePizza.getPrice() > 0.0) pizza.setPrice(updatePizza.getPrice());
+		if(updatePizza.getDescription() != null) pizza.setDescription(updatePizza.getDescription());
+		if(updatePizza.getUrl() != null) pizza.setUrl(updatePizza.getUrl());
+//		pizza.setName(updatePizza.getName());
+//		pizza.setPrice(updatePizza.getPrice());
+//		pizza.setDescription(updatePizza.getDescription());
+//		pizza.setUrl(updatePizza.getUrl());
 		pizzaService.save(pizza);
 		return new ResponseEntity<>(pizza, HttpStatus.OK);
 	}
