@@ -48,8 +48,11 @@
 @use "../assets/scss/main" as *;
 @use "../assets/scss/12bool" as *;
 
-.m-auto{
-    margin:auto
+li{
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+    }
 }
 
 </style>

@@ -1,6 +1,5 @@
 <template>
     <button @click="$emit('back')">back</button>
-    <button @click="$emit('update',singlePizza.id)">update</button>
 
     <div class="column align-middle">
         <h1>pizza:</h1>
@@ -30,6 +29,7 @@
             </li>
         </ul>
         <button @click="deletePizza">delete</button>
+        <button @click="$emit('update',singlePizza.id)">update</button>
     </div>
 </template>
 <script setup>

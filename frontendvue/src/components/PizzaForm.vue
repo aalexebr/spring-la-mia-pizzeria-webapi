@@ -1,36 +1,39 @@
 <template>
-    <button @click="$emit('back')">back</button>
-    <template v-if="updatePizza != null">
-        <h2>
-            updating pizza: {{ updatePizza.name }}
-        </h2>
-    </template>
-    <form @submit.prevent="submit">
-        <div>
-            <label for="name">insert name</label>
-            <input type="text" v-model="formData.name" required>
-        </div>
-        <div>
-            <label for="name">insert price</label>
-            <input type="number" v-model="formData.price" step="0.01" min="0.01" required>
-        </div>
-        <div>
-            <label for="name">insert desc</label>
-            <input type="text" v-model="formData.description">
-        </div>
-        <div>
-            <label for="name">insert url of image</label>
-            <input type="text" v-model="formData.url">
-        </div>
-        <div>
-            <template v-for="ing in ingredients" :key="ing.id">
-                <input type="checkbox" :name="ing.id" :id="ing.id" :value="ing.id" v-model="formData.ingredientId">
-                <label :for="ing.id">{{ ing.name }}</label>
-            </template>
-            
-        </div>
-        <button type="submit">submit</button>
-    </form>
+    <div class="column align-middle">
+        <button @click="$emit('back')">back</button>
+        <template v-if="updatePizza != null">
+            <h2>
+                updating pizza: {{ updatePizza.name }}
+            </h2>
+        </template>
+        <form @submit.prevent="submit">
+            <div>
+                <label for="name">insert name</label>
+                <input type="text" v-model="formData.name" required>
+            </div>
+            <div>
+                <label for="name">insert price</label>
+                <input type="number" v-model="formData.price" step="0.01" min="0.01" required>
+            </div>
+            <div>
+                <label for="name">insert desc</label>
+                <input type="text" v-model="formData.description">
+            </div>
+            <div>
+                <label for="name">insert url of image</label>
+                <input type="text" v-model="formData.url">
+            </div>
+            <div>
+                <template v-for="ing in ingredients" :key="ing.id">
+                    <input type="checkbox" :name="ing.id" :id="ing.id" :value="ing.id" v-model="formData.ingredientId">
+                    <label :for="ing.id">{{ ing.name }}</label>
+                </template>
+                
+            </div>
+            <button type="submit">submit</button>
+        </form>
+    </div>
+    
 </template>
 <script setup>
     // import

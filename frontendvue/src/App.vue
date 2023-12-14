@@ -1,5 +1,13 @@
 <template>
-	<div class="conatiner">
+	<div class="conatiner m-top">
+		<div class="row justify-center">
+			<button v-if="!openCreateFlag && !openSinglePizza "
+			@click="openForm"
+			class="justify-self-center"
+			>create pizza</button>
+		</div>
+		
+
 		<pizza-list @pizzaIndexShow="getListIndex"
 			:pizzaList="pizzas"
 			v-if="pizzas != null && !openSinglePizza && !openCreateFlag  && !openUpdateFlag"/>
@@ -8,8 +16,7 @@
 			@back="closeComponents"
 			@update="updateSinglePizza"
 			v-if="selectedPizza != null && openSinglePizza && !openUpdateFlag"/>
-		<button v-if="!openCreateFlag && !openSinglePizza "
-			@click="openForm">create pizza</button>
+
 		<pizza-form v-if="openCreateFlag || pizzaToUpdate != null"
 			:pizza="pizzaToUpdate"
 			@back="closeComponents"/>
@@ -73,7 +80,9 @@ onMounted(loadPizzas);
 <style lang="scss">
 // @use "./assets/scss/main" as *;
 // @use "./assets/scss/12bool" as *;
-
+.m-top{
+	margin-top: 30px;
+}
 
 </style>
 
