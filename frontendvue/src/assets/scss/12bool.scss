@@ -6,7 +6,12 @@
 
 .row{
     display: flex;
-    flex-direction: wrap;
+    flex-wrap: wrap;
+}
+.column{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 /* columns */
@@ -143,15 +148,19 @@
     height: 100%;
 }
 
-.align-start{
+.justify-self-center{
+    justify-self: center;
+}
+
+.justify-start{
     justify-content: flex-start;
 }
 
-.align-center{
+.justify-center{
     justify-content: center;
 }
 
-.align-end{
+.justify-end{
     justify-content: end;
 }
 

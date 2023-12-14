@@ -80,7 +80,7 @@ public class PizzaRestController {
 	}
 	
 	@PutMapping("update/{id}")
-	public ResponseEntity<Pizza> update(@RequestBody Pizza updatePizza,
+	public ResponseEntity<Pizza> update(@RequestBody PizzaRestDTO updatePizza,
 										@PathVariable int id){
 		Pizza pizza = pizzaService.findById(id);
 		if(pizza == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -93,6 +93,11 @@ public class PizzaRestController {
 //		pizza.setPrice(updatePizza.getPrice());
 //		pizza.setDescription(updatePizza.getDescription());
 //		pizza.setUrl(updatePizza.getUrl());
+		
+		if(updatePizza.getIngredientId() != null) {
+			List<Ingredient> ingredients = ingService.ingredientsById(updatePizza.getIngredientId());
+			pizza.setIngredients(ingredients);
+		}
 		pizzaService.save(pizza);
 		return new ResponseEntity<>(pizza, HttpStatus.OK);
 	}

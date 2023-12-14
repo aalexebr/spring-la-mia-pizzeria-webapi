@@ -1,30 +1,36 @@
 <template>
     <button @click="$emit('back')">back</button>
     <button @click="$emit('update',singlePizza.id)">update</button>
-    <h1>pizza:</h1>
-    <h2>
-        {{ singlePizza.name }}
-    </h2>
-    <h3>
-        price:{{ singlePizza.price }} $
-    </h3>
-    <p>
-        description:
-        {{ singlePizza.description }}
-    </p>
-    <ul v-if="singlePizza.ingredients.length >0">
-        ingredients:
-        <li v-for="(ing,i) in singlePizza.ingredients">
-            {{ ing.name }}
-        </li>
-    </ul>
-    <ul v-if="singlePizza.specialOffer.length >0">
-        special offers:
-        <li v-for="(off,i) in singlePizza.specialOffer">
-            {{ off.startDate }} to {{ off.endDate }}
-        </li>
-    </ul>
-    <button @click="deletePizza">delete</button>
+
+    <div class="column align-middle">
+        <h1>pizza:</h1>
+        <h2>
+            {{ singlePizza.name }}
+        </h2>
+        <div class="img">
+            <img :src="singlePizza.url" alt="">
+        </div>
+        <h3>
+            price:{{ singlePizza.price }} $
+        </h3>
+        <p>
+            description:
+            {{ singlePizza.description }}
+        </p>
+        <ul v-if="singlePizza.ingredients.length >0">
+            ingredients:
+            <li v-for="(ing,i) in singlePizza.ingredients">
+                {{ ing.name }}
+            </li>
+        </ul>
+        <ul v-if="singlePizza.specialOffer.length >0">
+            special offers:
+            <li v-for="(off,i) in singlePizza.specialOffer">
+                {{ off.startDate }} to {{ off.endDate }}
+            </li>
+        </ul>
+        <button @click="deletePizza">delete</button>
+    </div>
 </template>
 <script setup>
     // import
@@ -54,3 +60,14 @@
     }
 
 </script>
+
+<style lang="scss" scoped>
+@use "../assets/scss/main" as *;
+
+img{
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+}
+
+</style>

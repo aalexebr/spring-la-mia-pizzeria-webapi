@@ -1,17 +1,19 @@
 <template>
-  	<pizza-list @pizzaIndexShow="getListIndex"
-  	:pizzaList="pizzas"
-  	v-if="pizzas != null && !openSinglePizza && !openCreateFlag"/>
+	<div class="conatiner">
+		<pizza-list @pizzaIndexShow="getListIndex"
+			:pizzaList="pizzas"
+			v-if="pizzas != null && !openSinglePizza && !openCreateFlag  && !openUpdateFlag"/>
 
-	<single-pizza :singlePizza="selectedPizza"
-		@back="closeComponents"
-		@update="updateSinglePizza"
-		v-if="selectedPizza != null && openSinglePizza"/>
-	<button v-if="!openCreateFlag && !openSinglePizza"
-		@click="openForm">create pizza</button>
-	<pizza-form v-if="openCreateFlag || pizzaToUpdate != null"
-		:pizza="pizzaToUpdate"
-		@back="closeComponents"/>
+		<single-pizza :singlePizza="selectedPizza"
+			@back="closeComponents"
+			@update="updateSinglePizza"
+			v-if="selectedPizza != null && openSinglePizza && !openUpdateFlag"/>
+		<button v-if="!openCreateFlag && !openSinglePizza "
+			@click="openForm">create pizza</button>
+		<pizza-form v-if="openCreateFlag || pizzaToUpdate != null"
+			:pizza="pizzaToUpdate"
+			@back="closeComponents"/>
+	</div>
 </template>
 <script setup>
 // import
@@ -29,6 +31,7 @@ let selectedPizza = ref(null);
 let openSinglePizza = ref(false);
 let openCreateFlag = ref(false);
 let pizzaToUpdate = ref(null);
+let openUpdateFlag = ref(false);
 
 // methods
 const getListIndex = (index)=>{
@@ -42,6 +45,7 @@ const closeComponents = ()=>{
 	openSinglePizza.value = false;
 	pizzaToUpdate.value = null;
 	openCreateFlag.value = false;
+	openUpdateFlag.value = false;
 	loadPizzas();
 }
 const openForm = ()=>{
@@ -50,20 +54,10 @@ const openForm = ()=>{
 
 const updateSinglePizza = ()=>{
 	pizzaToUpdate.value = selectedPizza.value;
+	openUpdateFlag.value = true;
 	// console.log(pizzaToUpdate.value)
 }
 
-// const updateSinglePizza =(id)=>{
-// 	console.log(id)
-// 	pizzas.value.forEach((pizza) => {
-//     if (pizza.id === id) {
-// 		pizzaToUpdate.value = pizza;
-// 		console.log(pizzaToUpdate.value);
-// 		return
-//     }
-// 	console.log("running")
-//   });
-// }
 
 const loadPizzas = async () => {
   const data = await axios.get("http://localhost:8080/api/index");
@@ -76,8 +70,10 @@ onMounted(loadPizzas);
 
 </script>
 
-<style lang="scss" scoped>
-@use "./assets/scss/main" as *;
+<style lang="scss">
+// @use "./assets/scss/main" as *;
+// @use "./assets/scss/12bool" as *;
+
 
 </style>
 
